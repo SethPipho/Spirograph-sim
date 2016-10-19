@@ -14,8 +14,11 @@ canvas.height = canvasSize
 
 
 var OUTER_RADIUS = (window.innerHeight - 100)/2 - 20
-var INNER_RADIUS = 150;
-var PEN_POSITION = .5;
+var INNER_RADIUS = OUTER_RADIUS * Math.random();
+var PEN_POSITION = Math.random();
+
+var STEP_SIZE = .01
+var STEPS_PER_FRAME = 10;
 
 var angle = 0;
 
@@ -36,30 +39,36 @@ function loop()
 
 	//drawCircle(ctx, canvasSize/2, canvasSize/2, OUTER_RADIUS,0, "rgba(0,0,0,.5", 2,false)
 
-	angle -= .05
+	for (var i = 0; i < STEPS_PER_FRAME; i++)
+	{
+		angle -= STEP_SIZE
 
-	var inner_x = Math.cos(angle) * (OUTER_RADIUS - INNER_RADIUS) + canvasSize/2
-	var inner_y = Math.sin(angle) * (OUTER_RADIUS - INNER_RADIUS) + canvasSize/2
+		var inner_x = Math.cos(angle) * (OUTER_RADIUS - INNER_RADIUS) + canvasSize/2
+		var inner_y = Math.sin(angle) * (OUTER_RADIUS - INNER_RADIUS) + canvasSize/2
 
-	var innerAngle = (angle * OUTER_RADIUS) / (Math.PI * INNER_RADIUS * 2) * (-2*Math.PI)
-
-
-	pen_x = inner_x + (Math.cos(innerAngle) * INNER_RADIUS * PEN_POSITION)
-	pen_y = inner_y + (Math.sin(innerAngle) * INNER_RADIUS * PEN_POSITION)
-
-	//drawCircle(ctx, inner_x, inner_y, INNER_RADIUS,innerAngle,"rgba(0,0,0,.5", 2, true)
-	//drawCircle(ctx, pen_x, pen_y, 5 , 0,"rgba(0,0,0,.5", 2, false)
-
-	ctx.beginPath()
-	ctx.moveTo(prev_pen_x, prev_pen_y)
-	ctx.lineTo(pen_x, pen_y)
-	ctx.stroke()
-	ctx.closePath()
+		var innerAngle = (angle * OUTER_RADIUS) / (Math.PI * INNER_RADIUS * 2) * (-2*Math.PI)
 
 
-	prev_pen_x = pen_x
-	prev_pen_y = pen_y
+		pen_x = inner_x + (Math.cos(innerAngle) * INNER_RADIUS * PEN_POSITION)
+		pen_y = inner_y + (Math.sin(innerAngle) * INNER_RADIUS * PEN_POSITION)
 
+		//drawCircle(ctx, inner_x, inner_y, INNER_RADIUS,innerAngle,"rgba(0,0,0,.5", 2, true)
+		//drawCircle(ctx, pen_x, pen_y, 5 , 0,"rgba(0,0,0,.5", 2, false)
+
+		ctx.beginPath()
+		ctx.moveTo(prev_pen_x, prev_pen_y)
+		ctx.lineTo(pen_x, pen_y)
+		ctx.lineWidth = 1;
+		ctx.stroke()
+		ctx.closePath()
+
+
+		prev_pen_x = pen_x
+		prev_pen_y = pen_y
+
+	}
+	
+	
 	
 
 	window.requestAnimationFrame(loop)
