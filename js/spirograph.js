@@ -14,30 +14,89 @@ canvas.height = canvasSize
 
 
 var OUTER_RADIUS = (window.innerHeight - 100)/2 - 20
-var INNER_RADIUS = OUTER_RADIUS * Math.random();
-var PEN_POSITION = Math.random();
+var INNER_RADIUS = 0;
+var PEN_POSITION = 0;
 
 var STEP_SIZE = .01
 var STEPS_PER_FRAME = 10;
 
 var angle = 0;
 
-var pen_x = (canvasSize/2) + (OUTER_RADIUS - (INNER_RADIUS * (1 - PEN_POSITION)))
-var pen_y = (canvasSize/2)
+var pen_x;
+var pen_y;
 
-var prev_pen_x = pen_x
-var prev_pen_y = pen_y
+var prev_pen_x;
+var prev_pen_y;
 
+var settings =  
+{
+	innerRatio:  Math.random(),
+	penPosition: Math.random(),
+	stepPerFrame:5,
+	play:true,
+	reset:function(){reset()},
+	random:function()
+	{
+		this.innerRatio = Math.random()
+		this.penPosition = Math.random()
+	},
 
+	New_Random:function()
+	{
+		this.random()
+		reset()
+		
+	}
 
-window.requestAnimationFrame(loop)
+}
+
+function reset()
+{
+	INNER_RADIUS = OUTER_RADIUS * settings.innerRatio
+	PEN_POSITION = settings.penPosition
+
+	pen_x = (canvasSize/2) + (OUTER_RADIUS - (INNER_RADIUS * (1 - PEN_POSITION)))
+	pen_y = (canvasSize/2)
+
+	prev_pen_x = pen_x
+	prev_pen_y = pen_y
+
+	angle = 0
+
+	ctx.clearRect(0,0,canvas.width, canvas.height)
+}
+
+window.onload = function()
+{
+	var gui = new dat.GUI()
+
+	gui.add(settings, "innerRatio", 0,1,.01).listen()
+	gui.add(settings, "penPosition", 0,1,.01).listen()
+	gui.add(settings,"stepPerFrame", 1,20,1)
+	gui.add(settings,"random")
+	gui.add(settings,"play")
+	gui.add(settings,"reset")
+	gui.add(settings,"New_Random")
+
+	reset();
+
+	window.requestAnimationFrame(loop)
+
+}
+
 
 function loop()
 {
 
-	//ctx.clearRect(0,0,canvas.width, canvas.height)
+	INNER_RADIUS = settings.innerRatio * OUTER_RADIUS
+	PEN_POSITION = settings.penPosition
+	STEPS_PER_FRAME = settings.stepPerFrame
 
-	//drawCircle(ctx, canvasSize/2, canvasSize/2, OUTER_RADIUS,0, "rgba(0,0,0,.5", 2,false)
+	if (!settings.play)
+	{
+		window.requestAnimationFrame(loop);
+		return
+	}
 
 	for (var i = 0; i < STEPS_PER_FRAME; i++)
 	{
