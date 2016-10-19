@@ -36,7 +36,9 @@ var settings = {
     {
         this.innerRatio = Math.random()
         this.penPosition = Math.random()
-    },
+
+
+		},
     New_Random: function()
     {
         this.random()
@@ -55,20 +57,7 @@ function reset()
     angle = 0
     drawingCtx.clearRect( 0, 0, canvas.width, canvas.height )
 }
-window.onload = function()
-{
-    var gui = new dat.GUI()
-    gui.add( settings, "innerRatio", 0, 1, .01 ).listen()
-    gui.add( settings, "penPosition", 0, 1, .01 ).listen()
-    gui.add( settings, "stepPerFrame", 1, 100, 1 )
-		gui.add(settings,"drawGuides")
-    gui.add( settings, "random" )
-    gui.add( settings, "play" )
-    gui.add( settings, "reset" )
-    gui.add( settings, "New_Random" )
-    reset();
-    window.requestAnimationFrame( loop )
-}
+
 
 function loop()
 {
@@ -93,7 +82,7 @@ function loop()
 		        drawingCtx.moveTo( prev_pen_x, prev_pen_y )
 		        drawingCtx.lineTo( pen_x, pen_y )
 
-		        drawingCtx.lineWidth = 2;
+		        drawingCtx.lineWidth = 1.5;
 						drawingCtx.lineCap = "round"
 		        drawingCtx.stroke()
 
@@ -135,4 +124,20 @@ function drawCircle( ctx, x, y, r, angle, strokeStyle, strokeWidth, drawRadius )
         ctx.stroke()
         ctx.closePath()
     }
+}
+
+
+window.onload = function()
+{
+    var gui = new dat.GUI()
+    gui.add( settings, "innerRatio", 0, 1, .01 ).listen()
+    gui.add( settings, "penPosition", 0, 1, .01 ).listen()
+    gui.add( settings, "stepPerFrame", 1, 100, 1 )
+		gui.add(settings,"drawGuides")
+    gui.add( settings, "random" )
+    gui.add( settings, "play" )
+    gui.add( settings, "reset" )
+    gui.add( settings, "New_Random" )
+    reset();
+    window.requestAnimationFrame( loop )
 }
