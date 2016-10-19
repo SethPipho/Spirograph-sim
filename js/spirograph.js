@@ -4,13 +4,24 @@ var ctx = canvas.getContext( "2d" )
 var drawingCanvas = document.createElement( "canvas" )
 var drawingCtx = drawingCanvas.getContext( "2d" )
     ///////
-var canvasSize = ( window.innerHeight - 100 )
+
+if (window.innerHeight < window.innerWidth)
+{
+    canvasSize = ( window.innerHeight - 100 )
+}
+else
+{
+    canvasSize = ( window.innerWidth - 100 )
+}
+
+
+
 canvas.width = canvasSize
 canvas.height = canvasSize
 drawingCanvas.width = canvasSize
 drawingCanvas.height = canvasSize
     //////
-var OUTER_RADIUS = ( window.innerHeight - 100 ) / 2 - 20
+var OUTER_RADIUS = (canvasSize ) / 2 - 20
 var INNER_RADIUS = 0;
 var PEN_POSITION = 0;
 var STEP_SIZE = .02
