@@ -70,13 +70,19 @@ function reset()
 }
 
 
+
 function loop()
 {
+
     INNER_RADIUS = settings.innerRatio * OUTER_RADIUS
     PEN_POSITION = settings.penPosition
     STEPS_PER_FRAME = settings.stepPerFrame
     ctx.clearRect( 0, 0, canvas.width, canvas.height )
         //
+
+
+
+
     for ( var i = 0; i < STEPS_PER_FRAME; i++ )
     {
 
@@ -93,8 +99,10 @@ function loop()
 		        drawingCtx.moveTo( prev_pen_x, prev_pen_y )
 		        drawingCtx.lineTo( pen_x, pen_y )
 
-		        drawingCtx.lineWidth = 1.5;
-						drawingCtx.lineCap = "round"
+		        drawingCtx.lineWidth = 1;
+				drawingCtx.lineCap = "round"
+                drawingCtx.shadowBlur = 2
+                drawingCtx.shadowColor = "rgb(0,0,0)"
 		        drawingCtx.stroke()
 
 		        drawingCtx.closePath()
