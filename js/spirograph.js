@@ -93,8 +93,10 @@ function loop()
 		        drawingCtx.moveTo( prev_pen_x, prev_pen_y )
 		        drawingCtx.lineTo( pen_x, pen_y )
 
-		        drawingCtx.lineWidth = 1.5;
-						drawingCtx.lineCap = "round"
+		        drawingCtx.lineWidth = 1;
+				drawingCtx.lineCap = "round"
+                drawingCtx.shadowBlur = 2
+                drawingCtx.shadowColor = "rgb(0,0,0)"
 		        drawingCtx.stroke()
 
 		        drawingCtx.closePath()
