@@ -95,7 +95,7 @@ function loop()
 
 		        drawingCtx.lineWidth = 1;
 				drawingCtx.lineCap = "round"
-                drawingCtx.shadowBlur = 2
+                drawingCtx.shadowBlur = 1.5
                 drawingCtx.shadowColor = "rgb(0,0,0)"
 		        drawingCtx.stroke()
 
